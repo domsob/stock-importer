@@ -45,7 +45,11 @@ for year in years:
     for period in periods:
         makeDir(str(year) + '/' + period)
     for stock in stocks:
+        dividend = downloadFile(baseUri + stock + '&a=00&b=01&c=' + str(year) + '&d=11&e=31&f=' + str(year) + '&g=v&ignore=.csv')
+        if dividend != '':
+            splitDividend = dividend.split('\n')
+            writeToFile(str(year) + '/dividends.txt', (stock + ',' + str(splitDividend[1]) + '\r'))
         for period in periods:
-            csv = downloadFile(baseUri + stock + '&a=00&b=1&c=' + str(year) + '&d=11&e=31&f=' + str(year) + '&g=' + period + '&ignore=.csv');
+            csv = downloadFile(baseUri + stock + '&a=00&b=1&c=' + str(year) + '&d=11&e=31&f=' + str(year) + '&g=' + period + '&ignore=.csv')
             if csv != '':
-                writeToFile(str(year) + '/' + period + '/' + stock + '.txt', csv);
+                writeToFile(str(year) + '/' + period + '/' + stock + '.txt', csv)
